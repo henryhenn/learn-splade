@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Tables\Users;
 use Illuminate\Http\Request;
 use ProtoneMedia\Splade\Facades\Toast;
 use ProtoneMedia\Splade\SpladeTable;
@@ -15,17 +16,7 @@ class UserController extends Controller
     public function index()
     {
         return view('users.index', [
-            'users' => SpladeTable::for(User::class)
-                ->column('name')
-                ->column('email')
-                ->column('gender')
-                ->column('actions')
-                ->searchInput('name')
-                ->selectFilter('gender', [
-                    'male' => 'Male',
-                    'female' => 'Female',
-                ], noFilterOption: true, noFilterOptionLabel: 'All Gender')
-                ->paginate(15)
+            'users' => Users::class
         ]);
     }
 
