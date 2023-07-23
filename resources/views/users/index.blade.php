@@ -9,9 +9,15 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <Link href="{{route('users.create')}}" class="p-4 bg-green-500 text-white hover:bg-green-100">Create User</Link>
+                    <x-splade-link href="{{route('users.create')}}"
+                                   class="p-4 bg-green-500 text-white hover:bg-green-100">Create User
+                    </x-splade-link>
 
-                    <x-splade-table :for="$users" pagination-scroll="preserved"/>
+                    <x-splade-table :for="$users" pagination-scroll="preserved">
+                        <x-splade-cell actions as="$user">
+                            <x-splade-link href="{{route('users.edit', $user)}}" class="p-2 bg-green-500 hover:bg-green-400 rounded-md text-white">Edit</x-splade-link>
+                        </x-splade-cell>
+                    </x-splade-table>
                 </div>
             </div>
         </div>

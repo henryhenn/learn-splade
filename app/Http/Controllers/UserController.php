@@ -18,6 +18,7 @@ class UserController extends Controller
             'users' => SpladeTable::for(User::class)
                 ->column('name')
                 ->column('email')
+                ->column('actions')
                 ->paginate(15)
         ]);
     }
@@ -57,17 +58,25 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(User $user)
     {
-        //
+        return view('users.edit', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+        ]);
+
+        Toast::title('User Data Updated')->autoDismiss(3);
+
+        return to_route('users.index');
     }
 
     /**
